@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+	<p:growl  id="mensagem" showDetail="true" autoUpdate="true" closable="true" />
+	<h:form id="frmPrincesa">
+		<p:panelGrid columns="2" style="horizontal-align:center">
+			<h:outputText value="Id" />
+			<h:inputText id="id" value="#{princesaMB.princesa.id}" />
+			<h:outputText value="nome" /> 
+			<h:inputText id="nome" value="#{princesaMB.princesa.nome}" />
+			<h:outputLabel for="idade" value="Idade:" />
+			<h:inputText id="idade" value="#{princesaMB.princesa.idade}" />
+		</p:panelGrid>  
+		<p:panelGrid columns="6" style=" border: none">  
+			<h:commandButton action="#{princesaMB.incluir}" value="Incluir" update="tabela" />
+			<h:commandButton action="#{princesaMB.consultar}" value="Consultar" update="tabela, :frmPrincesa" />
+			<h:commandButton action="#{princesaMB.alterar}" value="Alterar" update="tabela" />
+			<h:commandButton action="#{princesaMB.excluir}" value="excluir" update="tabela" />
+			<h:commandButton action="#{princesaMB.limpar}" value="Limpar"/>
+		</p:panelGrid>
+	</h:form>
+	<p:dataTable id="tabela" var="item" value="#{princesaMB.lista}"
+		paginator="true" rows="50" emptyMessage="Não há registros na lista"
+		paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		rowsPerPageTemplate="10,15,25,50,100">
+		<f:facet name="header">Lista de Princesas</f:facet>
+		<p:column headerText="ID" style="width: 10%;" sortBy="#{item.id}">
+			<h:outputText value="#{item.id}" />
+		</p:column>
+		<p:column headerText="Nome" style="width: 25%;" sortBy="#{item.nome}">	
+			<h:outputText value="#{item.nome}" />
+		</p:column>
+		<p:column headerText="Idade" style="width: 25%;" sortBy="#{item.idade}">
+			<h:outputText value="#{item.idade}" />
+		</p:column>
+	</p:dataTable>
+</h:body>
+</html>
